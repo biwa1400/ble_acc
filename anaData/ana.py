@@ -16,7 +16,7 @@ def uniformValue(data):
 	
 	
 	
-def testHeatMap(heat_lats, heat_lngs, weights):
+def plotMap(heat_lats, heat_lngs, weights, level):
 	from gmplot import gmplot
 	gmap = gmplot.GoogleMapPlotter(62.394116, 17.283450, 13)
 
@@ -24,40 +24,12 @@ def testHeatMap(heat_lats, heat_lngs, weights):
 	weights = uniformValue(weights)
 	for weight in weights:
 		if i%3 == 0:
-			valueString = str(hex(abs(int((1-weight)**7*255))))[2:4]
+			valueString = str(hex(abs(int((1-weight)**level*255))))[2:4]
 			gmap.scatter((heat_lats[i],), (heat_lngs[i],), '#ff'+valueString*2, size=6, marker=False)
 		i+=1
 
-	gmap.draw("heatMap.html")
-	os.system(".\heatMap.html")	
-
-def testGoogleMap(points):
-	from gmplot import gmplot
-	# Place map
-	gmap = gmplot.GoogleMapPlotter(62.394116, 17.283450, 13)
-
-	# Polygon
-	golden_gate_park_lats, golden_gate_park_lons = zip(*points)
-	gmap.plot(golden_gate_park_lats, golden_gate_park_lons, 'cornflowerblue', edge_width=10)
-
-	# Scatter points
-	top_attraction_lats, top_attraction_lons = zip(*[
-		(37.769901, -122.498331),
-		(37.768645, -122.475328),
-		(37.771478, -122.468677),
-		(37.769867, -122.466102),
-		(37.767187, -122.467496),
-		(37.770104, -122.470436)
-		])
-	gmap.scatter(top_attraction_lats, top_attraction_lons, '#3B0B39', size=40, marker=False)
-
-	# Marker
-	hidden_gem_lat, hidden_gem_lon = 37.770776, -122.461689
-	gmap.marker(hidden_gem_lat, hidden_gem_lon, 'cornflowerblue')
-
-	# Draw
-	gmap.draw("my_map.html")
-	os.system(".\my_map.html")
+	gmap.draw("map.html")
+	os.system(".\map.html")	
 	
 def diffFun(data,step):
 	result = []
@@ -78,7 +50,7 @@ def diffFun(data,step):
 		
 	
 	
-def dataProcess():
+def dataProcess(level):
 	data = readData()
 	locationArray = []
 	accArray = []
@@ -93,18 +65,12 @@ def dataProcess():
 	acc_x_diff = diffFun(acc_x,1)
 	acc_y_diff = diffFun(acc_y,1)
 	acc_z_diff = diffFun(acc_z,1)
-	#print(acc_x_diff)
-	#plt.plot(acc_x)
-	#plt.plot(acc_x_diff)
-	testHeatMap(heat_lats, heat_lngs, acc_z_diff)
+	plotMap(heat_lats, heat_lngs, acc_z_diff,level)
 	
 
 		
 		
 	
 if __name__=='__main__':
-	#uniformValue([1,2,3])
-	dataProcess()
-	#testGoogleMap()
-	#dataProcess()
-	#print(str(hex(254))[2:4])
+	import sys
+	dataProcess(int(sys.argv[1]))
