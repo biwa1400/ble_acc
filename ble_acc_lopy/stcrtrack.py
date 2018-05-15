@@ -14,8 +14,6 @@ character_acc_x_UUID=0x01
 character_acc_y_UUID=0x02
 character_acc_z_UUID=0x03
 
-service_synchroize_UUID = 0x04
-character_synchroize_new_UUID=0x05
 
 class bluetooth:
     def __init__(self):
