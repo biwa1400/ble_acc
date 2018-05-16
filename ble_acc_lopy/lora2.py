@@ -13,8 +13,8 @@ lora = LoRa(mode=LoRa.LORAWAN, frequency=868000000)
 
 # create an ABP authentication params
 dev_addr = struct.unpack(">l", binascii.unhexlify('62431767'))[0]
-nwk_swkey = binascii.unhexlify('1d11a523beed795611ed04aec196f031')
-app_swkey = binascii.unhexlify('e8454027c306c6f942aa8160e9dd8b98')
+nwk_swkey = binascii.unhexlify('')
+app_swkey = binascii.unhexlify(')
 
 # join a network using ABP (Activation By Personalization)
 lora.join(activation=LoRa.ABP, auth=(dev_addr, nwk_swkey, app_swkey),dr=5)

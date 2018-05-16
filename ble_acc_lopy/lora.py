@@ -11,8 +11,8 @@ class LoRaNetwork:
 
         print("MacAddress: ",[hex(x) for x in lora.mac()])
 
-        app_eui = binascii.unhexlify('e5 e0 55 68 56 80 43 24'.replace(' ',''))
-        app_key = binascii.unhexlify('a3 51 5e 56 2a 69 1e ea 50 f5 4e 18 d0 6c 54 a4'.replace(' ',''))
+        app_eui = binascii.unhexlify('00 00 00 00 00 00 00 00'.replace(' ',''))
+        app_key = binascii.unhexlify('00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00'.replace(' ',''))
 
         if not lora.has_joined():
             while not lora.has_joined():
